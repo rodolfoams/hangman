@@ -1,7 +1,9 @@
 from os import system
 
 states = ["    _____\n   |     |\n   |     O\n   |    /|\\\n   |     |\n   |    / \\\n   |\n___|___", \
+          "    _____\n   |     |\n   |     O\n   |    /|\\\n   |     |\n   |    / \n   |\n___|___",   \
           "    _____\n   |     |\n   |     O\n   |    /|\\\n   |     |\n   |\n   |\n___|___",         \
+          "    _____\n   |     |\n   |     O\n   |    /|\n   |     |\n   |\n   |\n___|___",           \
           "    _____\n   |     |\n   |     O\n   |     |\n   |     |\n   |\n   |\n___|___",           \
           "    _____\n   |     |\n   |     O\n   |\n   |\n   |\n   |\n___|___",                       \
           "    _____\n   |     |\n   |\n   |\n   |\n   |\n   |\n___|___"]
@@ -19,7 +21,8 @@ def play_game(secret, hint, attempts_left, current_array, used_letters):
     print "(Hint: %s)" % (hint)
     print "Mistakes allowed:", attempts_left - 1
     guess = raw_input("Guess a letter in the word: ")
-    if len(guess) == 0 or guess[0] in used_letters: return play_game(secret, hint, attempts_left, current_array, used_letters)
+    if len(guess) == 0 or guess[0] in used_letters:
+        return play_game(secret, hint, attempts_left, current_array, used_letters)
     used_letters.append(guess[0])
     used_letters.sort()
     matched = False
@@ -39,6 +42,7 @@ def main():
             if secret[i] == " ": initial_array[i] = " "
             if secret[i] == "-": initial_array[i] = "-"
         solved = play_game(secret, hint, len(states)-1, initial_array, [])
+        print "Secret was: %s" % (" ".join(list(secret)))
         if not solved:
             print "You lose!"
         else:
